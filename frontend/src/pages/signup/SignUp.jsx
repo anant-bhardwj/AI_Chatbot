@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
     fullName: "",
-    userName: "",
+    username: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const handleSubmit = (e) => {
+  const { loading, signup } = useSignup();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    await signup(inputs);
   };
 
   return (
@@ -47,9 +51,24 @@ const SignUp = () => {
                 placeholder="username"
                 className="w-full h-10 input input-bordered"
                 required
-                value={inputs.userName}
+                value={inputs.username}
                 onChange={(e) =>
-                  setInputs({ ...inputs, userName: e.target.value })
+                  setInputs({ ...inputs, username: e.target.value })
+                }
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-base">Email</span>
+              </label>
+              <input
+                type="text"
+                placeholder="email"
+                className="w-full h-10 input input-bordered"
+                required
+                value={inputs.email}
+                onChange={(e) =>
+                  setInputs({ ...inputs, email: e.target.value })
                 }
               />
             </div>
@@ -90,7 +109,13 @@ const SignUp = () => {
               Already have an account?
             </Link>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign Up</button>
+              <button className="btn btn-primary" disabled={loading}>
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Sign Up"
+                )}
+              </button>
             </div>
           </form>
         </div>

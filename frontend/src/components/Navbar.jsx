@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dark, Light, Retro, Cupcake } from "../assets/themes/Themes.jsx";
-import IconSelector from "../assets/IconSelector.jsx";
+import { useAuthContext } from "../context/AuthContext.jsx";
+import LogoutButton from "./LogoutButton.jsx";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(
@@ -11,6 +12,8 @@ const Navbar = () => {
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
+
+  const { authUser } = useAuthContext();
 
   return (
     <div className="navbar bg-base-300 shadow">
@@ -50,6 +53,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+      <div className="m-auto px-2">{authUser ? <LogoutButton /> : null}</div>
     </div>
   );
 };
