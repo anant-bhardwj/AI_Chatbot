@@ -13,9 +13,9 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-300 shadow">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">PuuP GPT</a>
       </div>
       <div className="dropdown dropdown-hover dropdown-end">
         <div tabIndex={0} role="button" className="w-20 btn my-1 mx-4">
